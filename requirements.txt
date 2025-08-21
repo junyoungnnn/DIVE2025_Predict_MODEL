@@ -9,6 +9,7 @@ colorama==0.4.6
 colorlog==6.9.0
 fastapi==0.116.1
 greenlet==3.2.4
+gunicorn==23.0.0
 h11==0.16.0
 httptools==0.6.4
 idna==3.10
