@@ -95,7 +95,7 @@ def predict_and_explain_risk(features: ContractInput):
         ask_payload = {"question": prediction_json_string}
         print(prediction_json_string)
         # 외부 AI 서버에 JSON 데이터를 전송합니다.
-        ask_response = requests.post(EXTERNAL_AI_URL, json=ask_payload, timeout=20)
+        ask_response = requests.post(EXTERNAL_AI_URL, json=ask_payload)
         
         if ask_response.status_code == 200:
             ai_explanation_text = ask_response.json().get("answer", "AI 응답에서 'answer' 키를 찾을 수 없습니다.")
