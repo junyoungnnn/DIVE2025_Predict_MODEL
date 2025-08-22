@@ -37,13 +37,6 @@ class ContractInput(BaseModel):
     시도: str
     주택구분: str
 
-class FinalPredictionResult(BaseModel):
-    risk_score: float
-    risk_level: str
-    explanation: List[Dict[str, Any]]
-    ai_explanation: str
-    original_input: Dict[str, Any]
-
 # 핵심 예측 로직
 def _calculate_prediction(features: ContractInput) -> Dict[str, Any]:
     if not model:
@@ -81,8 +74,8 @@ def _calculate_prediction(features: ContractInput) -> Dict[str, Any]:
     }
 
 # API 엔드포인트
-@app.post("/predict_and_explain", response_model=FinalPredictionResult)
-def predict_and_explain_risk(features: ContractInput):
+@app.post("/predict_and_explain")
+def predict_and_explain_risk(features: ContractInput) -> Dict[str, Any]:
 
     prediction_result = _calculate_prediction(features)
     
@@ -106,7 +99,7 @@ def predict_and_explain_risk(features: ContractInput):
         ai_explanation_text = f"AI 설명 서버 연결 중 오류 발생: {e}"
 
     final_result = {
-        **prediction_result,
+        "risk_score": prediction_result["risk_score"],
         "ai_explanation": ai_explanation_text
     }
     
