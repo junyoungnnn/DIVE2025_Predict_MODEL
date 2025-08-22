@@ -27,6 +27,10 @@ except Exception as e:
 # 환경 변수에서 외부 AI 서버 주소 불러오기
 EXTERNAL_AI_URL = os.getenv("EXTERNAL_AI_URL")
 
+@app.get("/")
+def root():
+    return {"status": "running2000"}
+
 # Pydantic 데이터 모델 정의
 class ContractInput(BaseModel):
     보증시작월: int
@@ -104,3 +108,4 @@ def predict_and_explain_risk(features: ContractInput) -> Dict[str, Any]:
     }
     
     return final_result
+
