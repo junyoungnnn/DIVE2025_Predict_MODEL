@@ -84,7 +84,7 @@ def _calculate_prediction(features: ContractInput) -> Dict[str, Any]:
             "description": "위험도를 높이는 주요 원인입니다." if shap_values[0, i] > 0 else "위험도를 낮추는 요인입니다."
         })
 
-    risk_level = "매우 높음" if risk_proba > 0.75 else "높음" if risk_proba > 0.5 else "보통"
+    risk_level = "매우 높음" if risk_proba > 0.148 else "높음" if risk_proba > 0.074 else "보통"
     
     return {
         "risk_score": round(float(risk_proba), 4),
