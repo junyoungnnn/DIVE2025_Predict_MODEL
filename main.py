@@ -7,6 +7,7 @@ import requests
 import os
 import json
 
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Dict, Any
@@ -26,6 +27,21 @@ except Exception as e:
 
 # 환경 변수에서 외부 AI 서버 주소 불러오기
 EXTERNAL_AI_URL = os.getenv("EXTERNAL_AI_URL")
+
+# --- CORS 설정 ---
+ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5500",
+    "http://dive.oppspark.net",
+    "https://dive.oppspark.net",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],   # 필요 시 ["GET","POST","OPTIONS"]로 제한 가능
+    allow_headers=["*"],   # 필요 시 ["Content-Type","Authorization"] 등으로 제한 가능
+)
+
 
 @app.get("/")
 def root():
